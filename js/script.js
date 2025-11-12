@@ -6,147 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const navContainer = document.getElementById('nav-container');
 
     /* ----------------------------------------------------------------- */
-    /* --- STYLISH MOVING BACKGROUND (TSPARTICLES) FUNCTIONS --- */
+    /* --- TSPARTICLES CODE HAS BEEN REMOVED --- */
     /* ----------------------------------------------------------------- */
-
-    let particlesLoaded = false; // Flag to prevent multiple loads
-    let particleLoadAttempts = 0; // Safety counter
-
-    /**
-     * Gets the correct colors for particles based on the current theme.
-     * Reads from the CSS variables to stay in sync.
-     */
-    function getParticleColors() {
-        const computedStyle = getComputedStyle(document.documentElement);
-        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-        
-        return {
-            particle: isDark ? "rgba(255, 255, 255, 0.2)" : "rgba(0, 0, 0, 0.2)",
-            link: (computedStyle.getPropertyValue('--primary-blue') || "#0A7EAB") + "33"
-        };
-    }
-
-    /**
-     * Loads the particle animation with the correct theme colors.
-     */
-    async function initParticles() {
-        // Check if the library is loaded and not already initialized
-        if (typeof tsParticles === 'undefined' || particlesLoaded) {
-            return;
-        }
-
-        const colors = getParticleColors();
-        
-        // CORRECT v3 LOAD SIGNATURE: tsParticles.load("tsparticles", { ...options... })
-        await tsParticles.load("tsparticles", {
-            background: {
-                // Set the background of the canvas itself to transparent
-                // The site's background is managed by the HTML element
-                color: {
-                    value: "transparent",
-                },
-            },
-            fpsLimit: 120,
-            interactivity: {
-                events: {
-                    onClick: {
-                        enable: true,
-                        mode: "push",
-                    },
-                    onHover: {
-                        enable: true,
-                        mode: "repulse",
-                    },
-                },
-                modes: {
-                    push: {
-                        quantity: 4,
-                    },
-                    repulse: {
-                        distance: 100,
-                        duration: 0.4,
-                    },
-                },
-            },
-            particles: {
-                color: {
-                    value: colors.particle, // Use theme color for particles
-                },
-                links: {
-                    color: colors.link, // Use theme color for links (with transparency)
-                    distance: 150,
-                    enable: true,
-                    opacity: 0.5,
-                    width: 1,
-                },
-                move: {
-                    direction: "none",
-                    enable: true,
-                    outModes: {
-                        default: "bounce",
-                    },
-                    random: false,
-                    speed: 2,
-                    straight: false,
-                },
-                number: {
-                    density: {
-                        enable: true,
-                    },
-                    value: 80,
-                },
-                opacity: {
-                    value: 0.5,
-                },
-                shape: {
-                    type: "circle",
-                },
-                size: {
-                    value: { min: 1, max: 5 },
-                },
-            },
-            detectRetina: true,
-        });
-
-        particlesLoaded = true;
-    }
-
-    /**
-     * Reloads the particle animation with the new theme colors.
-     */
-    async function reloadParticles() {
-        if (typeof tsParticles === 'undefined') {
-            return;
-        }
-
-        const container = tsParticles.domItem(0);
-        if (!container) return;
-
-        const colors = getParticleColors();
-
-        // 1. Update the particle color
-        container.options.particles.color.value = colors.particle;
-        
-        // 2. Update the link color
-        container.options.particles.links.color = colors.link;
-
-        // 3. Refresh the canvas to apply changes
-        await container.refresh();
-    }
-
-
-    function tryLoadParticles() {
-        // Safety check to ensure tsParticles library has loaded
-        if (typeof tsParticles === 'undefined') {
-            if (particleLoadAttempts < 5) {
-                // Retry after a short delay
-                setTimeout(tryLoadParticles, 500);
-                particleLoadAttempts++;
-            }
-            return;
-        }
-        initParticles();
-    }
     
     /* ----------------------------------------------------------------- */
     /* --- THEME TOGGLE LOGIC --- */
@@ -160,10 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
             htmlElement.removeAttribute('data-theme');
             localStorage.setItem('theme', 'light');
         }
-        // >>>>> CRITICAL FIX: Reload particles immediately after theme change <<<<<
-        if (particlesLoaded) {
-            reloadParticles();
-        }
+        // Particle reload function was removed from here
     }
 
     function toggleTheme() {
@@ -237,8 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 1. Initialize theme before loading anything else
     initTheme();
 
-    // 2. Start TRYING to load particles immediately
-    tryLoadParticles();
+    // 2. Particle load call was removed from here
 
     // 3. Handle preloader fade-out based on window load (safe)
     window.addEventListener('load', () => {
