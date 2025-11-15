@@ -28,7 +28,7 @@
     --logo-filter: none; /* No filter for logo in light mode */
     --hero-gradient: linear-gradient(rgba(255,255,255,0.75), rgba(255,255,255,0.75)); /* Light overlay for hero */
     --hero-image: url('../img/i7.jpg');
-    --background-texture: url('../img/i6.png');
+    --background-texture: url('../img/i6.jpeg');
     
 }
 
@@ -58,7 +58,7 @@
 
     --logo-filter: none; /* Assuming light logo, no filter needed. Adjust if logo is dark */
     --hero-gradient: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)); /* Darker overlay for hero */
-    --background-texture: url('../img/i8.png'); 
+    --background-texture: url('../img/i8.jpeg'); 
 }
 
 /* Base Styles */
@@ -473,8 +473,8 @@ h1, h2, h3, h4, h5, h6, .text-big, .section-tag, .address-title {
     gap: 70px;
     border: 1px solid var(--border-light); /* Use light border */
     /* MODIFICATION: Add glassmorphism effect */
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
     transition: background-color 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease, color 0.4s ease; /* Smooth transition */
 }
 
